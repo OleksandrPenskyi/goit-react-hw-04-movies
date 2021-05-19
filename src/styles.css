@@ -1,0 +1,26 @@
+.header {
+  width: 100%;
+  border-bottom: 2px solid grey;
+}
+
+.navList {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+.navList_item:first-child {
+  margin-right: 20px;
+}
+
+.homePage {
+  color: currentColor;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.homePage__active {
+  color: red;
+  text-decoration: none;
+  font-weight: 700;
+}
