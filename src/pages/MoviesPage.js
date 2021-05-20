@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
+import api from '../services/movie-api';
+import SearchMovieForm from '../components/SearchMovieForm';
+import SearchListMovies from '../components/SearchListMovies';
 
 class MoviesPage extends Component {
   state = {
-    search: '',
+    searchQuery: '',
+    moviesList: null,
   };
 
-  handleInputChange = event => {
-    this.setState({
-      search: event.target.value,
-    });
+  handleSubmitForm = value => {
+    if (value && value.length > 0) this.setState({ searchQuery: value });
   };
 
-  handleSubmitForm = event => {
-    event.preventDefault();
-    console.log(this.state.search);
-  };
+  async componentDidUpdate(prevProps, prevState) {
+    const previousState = prevState.searchQuery;
+    const currentState = this.state.searchQuery;
+
+    if (previousState !== currentState && currentState) {
+      const results = await api.movieSearch(currentState);
+      this.setState({ moviesList: results });
+    }
+  }
 
   render() {
-    const { search } = this.state;
+    const { searchQuery, moviesList } = this.state;
+    const { url } = this.props.match;
     return (
-      <form onSubmit={this.handleSubmitForm}>
-        <input onChange={this.handleInputChange} value={search} />
-        <button type="submit">Search</button>
-      </form>
+      <>
+        <SearchMovieForm onSubmitForm={this.handleSubmitForm} />
+
+        {moviesList && moviesList?.length > 0 && (
+          <SearchListMovies moviesList={moviesList} url={url} />
+        )}
+      </>
     );
   }
 }
