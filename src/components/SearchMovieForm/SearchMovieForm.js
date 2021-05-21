@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 const INITIAL_STATE = {
   search: '',
@@ -9,15 +8,26 @@ class MovieDetailsPage extends Component {
   state = { ...INITIAL_STATE };
 
   handleInputChange = event => {
+    const { value } = event.target;
     this.setState({
-      search: event.target.value,
+      search: value,
     });
   };
 
   handleSubmit = event => {
     const { search } = this.state;
     event.preventDefault();
-    this.props.onSubmitForm(search);
+
+    // проверка на запрос с пустой строкой поиска
+    if (!search?.length > 0) {
+      return;
+    }
+
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `query=${search}`,
+    });
+
     this.clearForm();
   };
 
@@ -31,10 +41,7 @@ class MovieDetailsPage extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input onChange={this.handleInputChange} value={search} />
-        <button type="submit">
-          Search
-          {/* <Link to="/movies/saddsdadaskaads">Search</Link> */}
-        </button>
+        <button type="submit">Search</button>
       </form>
     );
   }

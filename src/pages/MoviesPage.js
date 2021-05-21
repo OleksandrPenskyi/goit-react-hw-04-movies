@@ -2,33 +2,32 @@ import React, { Component } from 'react';
 import api from '../services/movie-api';
 import SearchMovieForm from '../components/SearchMovieForm';
 import SearchListMovies from '../components/SearchListMovies';
+import queryString from 'query-string';
 
 class MoviesPage extends Component {
   state = {
-    searchQuery: '',
     moviesList: null,
   };
 
-  handleSubmitForm = value => {
-    if (value && value.length > 0) this.setState({ searchQuery: value });
-  };
-
   async componentDidUpdate(prevProps, prevState) {
-    const previousState = prevState.searchQuery;
-    const currentState = this.state.searchQuery;
+    const { search } = this.props.location;
+    const previousProps = prevProps.location.search;
+    const currentProps = this.props.location.search;
 
-    if (previousState !== currentState && currentState) {
-      const results = await api.movieSearch(currentState);
+    if (previousProps !== currentProps && currentProps.length > 0) {
+      const { query } = queryString.parse(search);
+      const results = await api.movieSearch(query);
       this.setState({ moviesList: results });
     }
   }
 
   render() {
-    const { searchQuery, moviesList } = this.state;
+    const { moviesList } = this.state;
     const { url } = this.props.match;
+
     return (
       <>
-        <SearchMovieForm onSubmitForm={this.handleSubmitForm} />
+        <SearchMovieForm {...this.props} />
 
         {moviesList && moviesList?.length > 0 && (
           <SearchListMovies moviesList={moviesList} url={url} />

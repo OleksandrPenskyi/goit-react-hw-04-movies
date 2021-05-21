@@ -1,0 +1,30 @@
+.Navigation__wrapper {
+  padding: 20px 0 20px 40px;
+  border-bottom: 2px solid grey;
+}
+
+.NavList {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.Menu__item {
+  list-style: none;
+}
+
+.Menu__item:not(:last-child) {
+  margin-right: 20px;
+}
+
+.Menu__link {
+  text-decoration: none;
+  color: currentColor;
+}
+
+.Menu__link__active {
+  text-decoration: none;
+  color: red;
+  font-weight: 700;
+}
