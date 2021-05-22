@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import api from '../services/movie-api';
-import TrendMoviesList from '../components/TrendMoviesList';
+import MoviesList from '../components/MoviesList';
+import routes from '../routes';
 
 class HomePage extends Component {
   state = {
@@ -8,6 +9,10 @@ class HomePage extends Component {
   };
 
   async componentDidMount() {
+    const { history } = this.props;
+    // /проверка на "левый" адрес
+    history.push(routes.home);
+
     const result = await api.getTrendMovie();
 
     this.setState({
@@ -18,7 +23,10 @@ class HomePage extends Component {
   render() {
     const { trendMovies } = this.state;
     return (
-      <TrendMoviesList title={'Trending today'} trendMovies={trendMovies} />
+      <>
+        <h2>Trending today</h2>
+        <MoviesList moviesList={trendMovies} />
+      </>
     );
   }
 }

@@ -20,6 +20,4 @@ const Cast = ({ cast }) => (
   </ul>
 );
 
-//todo заглушка на фото
-
 export default Cast;

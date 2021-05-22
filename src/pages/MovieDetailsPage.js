@@ -6,6 +6,8 @@ import Reviews from '../components/Reviews';
 import MovieInfo from '../components/MovieInfo';
 import Navigation from '../components/Navigation';
 import Section from '../components/SectionMovieDetails';
+import GoBackButton from '../components/GoBackButton';
+import routes from '../routes';
 
 import noPicture from '../img/noPicture.jpg';
 
@@ -23,11 +25,9 @@ class MovieDetailsPage extends Component {
 
   async componentDidMount() {
     const id = this.props.match.params.movieId;
-
     const filmResult = await api.getFullMovieInfo(id);
     const castResult = await api.getMovieCast(id);
     const reviewsResult = await api.getMovieReviews(id);
-
     this.setState({
       title: filmResult.original_title,
       overview: filmResult.overview,
@@ -42,6 +42,11 @@ class MovieDetailsPage extends Component {
     });
   }
 
+  handleGoBack = () => {
+    const { history, location } = this.props;
+    history.push(location?.state?.from || routes.home);
+  };
+
   render() {
     const {
       title,
@@ -53,11 +58,14 @@ class MovieDetailsPage extends Component {
       reviews,
       vote_average,
     } = this.state;
+
     const { url, path } = this.props.match;
 
     return (
       <>
         <Section>
+          <GoBackButton handleGoBack={this.handleGoBack} />
+
           <MovieInfo
             title={title}
             overview={overview}
@@ -66,7 +74,6 @@ class MovieDetailsPage extends Component {
             release_date={release_date}
             vote_average={vote_average}
           />
-
           <Navigation
             pages={[
               { name: 'Cast', link: `${url}/cast` },

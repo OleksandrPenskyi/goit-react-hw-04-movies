@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 const INITIAL_STATE = {
   search: '',
@@ -9,22 +10,24 @@ class MovieDetailsPage extends Component {
 
   handleInputChange = event => {
     const { value } = event.target;
+
     this.setState({
       search: value,
     });
   };
 
   handleSubmit = event => {
-    const { search } = this.state;
     event.preventDefault();
+    const { search } = this.state;
+    const { history, location } = this.props;
 
     // проверка на запрос с пустой строкой поиска
     if (!search?.length > 0) {
       return;
     }
 
-    this.props.history.push({
-      pathname: this.props.location.pathname,
+    history.push({
+      pathname: location.pathname,
       search: `query=${search}`,
     });
 
@@ -47,4 +50,4 @@ class MovieDetailsPage extends Component {
   }
 }
 
-export default MovieDetailsPage;
+export default withRouter(MovieDetailsPage);

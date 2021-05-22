@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage';
 import MoviesPage from './pages/MoviesPage';
 import MovieDetailsPage from './pages/MovieDetailsPage';
 import Navigation from './components/Navigation';
+import routes from './routes';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -21,9 +22,9 @@ class App extends Component {
         <Navigation pages={pages} />
 
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/movies/:movieId" component={MovieDetailsPage} />
-          <Route path="/movies" component={MoviesPage} />
+          <Route path={routes.movieDetailsPage} component={MovieDetailsPage} />
+          <Route path={routes.movies} component={MoviesPage} />
+          <Route component={HomePage} />
         </Switch>
       </>
     );
