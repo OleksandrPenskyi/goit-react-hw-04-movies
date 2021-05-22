@@ -5,6 +5,8 @@ import MoviesList from '../components/MoviesList';
 import queryString from 'query-string';
 
 class MoviesPage extends Component {
+  isLoaded = false;
+
   state = {
     moviesList: null,
   };
@@ -27,10 +29,23 @@ class MoviesPage extends Component {
   }
 
   getMovies = async search => {
-    const { query } = queryString.parse(search);
-    const results = await api.movieSearch(query);
-    this.setState({ moviesList: results });
+    try {
+      this.isLoaded = true;
+
+      const { query } = queryString.parse(search);
+      const results = await api.movieSearch(query);
+      if (this.isLoaded) {
+        this.setState({ moviesList: results });
+      }
+      this.isLoaded = false;
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  componentWillUnmount() {
+    this.isLoaded = false;
+  }
 
   render() {
     const { moviesList } = this.state;

@@ -10,14 +10,12 @@ const MovieInfo = ({
   vote_average,
 }) => (
   <div className={styles.MovieInfo}>
-    <div className={styles.panel}>
-      <div className={styles.container}>
-        <img
-          className={styles.image}
-          src={moviePoster}
-          alt={`${title} moviePoster`}
-        />
-      </div>
+    <div className={styles.Container}>
+      <img
+        className={styles.image}
+        src={moviePoster}
+        alt={`${title} moviePoster`}
+      />
     </div>
 
     <div className={styles.Info__wrapper}>

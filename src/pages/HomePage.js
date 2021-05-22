@@ -24,7 +24,7 @@ class HomePage extends Component {
     const { trendMovies } = this.state;
     return (
       <>
-        <h2>Trending today</h2>
+        <h2 className="title">Trending today</h2>
         <MoviesList moviesList={trendMovies} />
       </>
     );

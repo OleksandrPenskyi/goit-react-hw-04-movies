@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import styles from './SearchMovieForm.module.css';
+
 const INITIAL_STATE = {
   search: '',
 };
@@ -42,9 +44,15 @@ class MovieDetailsPage extends Component {
     const { search } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input onChange={this.handleInputChange} value={search} />
-        <button type="submit">Search</button>
+      <form className={styles.Form} onSubmit={this.handleSubmit}>
+        <input
+          className={styles.Input}
+          onChange={this.handleInputChange}
+          value={search}
+        />
+        <button className={styles.Btn} type="submit">
+          Search
+        </button>
       </form>
     );
   }

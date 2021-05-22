@@ -1,10 +1,12 @@
 import React from 'react';
 
+import styles from './Reviews.module.css';
+
 const Reviews = ({ reviews }) => (
-  <ul>
+  <ul className={styles.List}>
     {reviews.map(({ author, content, id }) => (
-      <li key={id}>
-        <p>Author: {author}</p>
+      <li className={styles.Item} key={id}>
+        <p className={styles.Title}>Author: {author}</p>
         <p>{content}</p>
       </li>
     ))}

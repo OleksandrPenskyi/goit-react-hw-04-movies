@@ -1,0 +1,24 @@
+.Form {
+  margin-top: 20px;
+}
+
+.Input {
+  margin-right: 15px;
+  transition: all 200ms ease-in;
+}
+
+.Input:focus {
+  outline: none;
+
+  border: 2px solid lightblue;
+}
+
+.Btn {
+  transition: all 200ms ease-in;
+}
+
+.Btn:hover {
+  background-color: lightblue;
+  border: none;
+  border-radius: 1px;
+}

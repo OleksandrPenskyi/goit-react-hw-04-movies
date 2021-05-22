@@ -1,11 +1,21 @@
-import React, { Component } from 'react';
-import HomePage from './pages/HomePage';
-import MoviesPage from './pages/MoviesPage';
-import MovieDetailsPage from './pages/MovieDetailsPage';
+import React, { Component, Suspense, lazy } from 'react';
+// import HomePage from './pages/HomePage';
+// import MoviesPage from './pages/MoviesPage';
+// import MovieDetailsPage from './pages/MovieDetailsPage';
 import Navigation from './components/Navigation';
 import routes from './routes';
-
 import { Route, Switch } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
+
+const HomePage = lazy(() =>
+  import('./pages/HomePage' /* webpackChunkName: "HomePage" */),
+);
+const MoviesPage = lazy(() =>
+  import('./pages/MoviesPage' /* webpackChunkName: "MoviesPage" */),
+);
+const MovieDetailsPage = lazy(() =>
+  import('./pages/MovieDetailsPage' /* webpackChunkName: "MovieDetailsPage" */),
+);
 
 class App extends Component {
   state = {
@@ -21,11 +31,20 @@ class App extends Component {
       <>
         <Navigation pages={pages} />
 
-        <Switch>
-          <Route path={routes.movieDetailsPage} component={MovieDetailsPage} />
-          <Route path={routes.movies} component={MoviesPage} />
-          <Route component={HomePage} />
-        </Switch>
+        <Suspense
+          fallback={
+            <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+          }
+        >
+          <Switch>
+            <Route
+              path={routes.movieDetailsPage}
+              component={MovieDetailsPage}
+            />
+            <Route path={routes.movies} component={MoviesPage} />
+            <Route component={HomePage} />
+          </Switch>
+        </Suspense>
       </>
     );
   }

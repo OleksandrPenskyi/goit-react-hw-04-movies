@@ -1,0 +1,17 @@
+.List {
+  margin-top: 20px;
+  padding-left: 30px;
+}
+
+.Item {
+  margin-bottom: 20px;
+}
+
+.Pic {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.Name {
+  margin-bottom: 10px;
+}

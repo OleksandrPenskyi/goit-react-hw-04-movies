@@ -12,6 +12,8 @@ import routes from '../routes';
 import noPicture from '../img/noPicture.jpg';
 
 class MovieDetailsPage extends Component {
+  isLoaded = false;
+
   state = {
     title: null,
     overview: null,
@@ -25,21 +27,35 @@ class MovieDetailsPage extends Component {
 
   async componentDidMount() {
     const id = this.props.match.params.movieId;
-    const filmResult = await api.getFullMovieInfo(id);
-    const castResult = await api.getMovieCast(id);
-    const reviewsResult = await api.getMovieReviews(id);
-    this.setState({
-      title: filmResult.original_title,
-      overview: filmResult.overview,
-      genres: filmResult.genres,
-      moviePoster: filmResult.backdrop_path
-        ? `https://image.tmdb.org/t/p/w300${filmResult.backdrop_path}`
-        : noPicture,
-      release_date: filmResult.release_date.slice(0, 4),
-      vote_average: filmResult.vote_average,
-      cast: castResult,
-      reviews: reviewsResult,
-    });
+
+    try {
+      this.isLoaded = true;
+
+      const filmResult = await api.getFullMovieInfo(id);
+      const castResult = await api.getMovieCast(id);
+      const reviewsResult = await api.getMovieReviews(id);
+      if (this.isLoaded) {
+        this.setState({
+          title: filmResult.original_title,
+          overview: filmResult.overview,
+          genres: filmResult.genres,
+          moviePoster: filmResult.backdrop_path
+            ? `https://image.tmdb.org/t/p/w300${filmResult.backdrop_path}`
+            : noPicture,
+          release_date: filmResult.release_date.slice(0, 4),
+          vote_average: filmResult.vote_average,
+          cast: castResult,
+          reviews: reviewsResult,
+        });
+      }
+      this.isLoaded = false;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentWillUnmount() {
+    this.isLoaded = false;
   }
 
   handleGoBack = () => {
@@ -77,7 +93,7 @@ class MovieDetailsPage extends Component {
           <Navigation
             pages={[
               { name: 'Cast', link: `${url}/cast` },
-              { name: 'Movies', link: `${url}/Reviews` },
+              { name: 'Reviews', link: `${url}/Reviews` },
             ]}
           />
         </Section>

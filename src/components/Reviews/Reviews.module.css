@@ -1,0 +1,13 @@
+.List {
+  margin-top: 20px;
+  padding-left: 40px;
+}
+
+.Item {
+  margin-bottom: 20px;
+}
+
+.Title {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
