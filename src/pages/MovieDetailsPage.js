@@ -40,7 +40,7 @@ class MovieDetailsPage extends Component {
           overview: filmResult.overview,
           genres: filmResult.genres,
           moviePoster: filmResult.backdrop_path
-            ? `https://image.tmdb.org/t/p/w300${filmResult.backdrop_path}`
+            ? `https://image.tmdb.org/t/p/w500${filmResult.backdrop_path}`
             : noPicture,
           release_date: filmResult.release_date.slice(0, 4),
           vote_average: filmResult.vote_average,

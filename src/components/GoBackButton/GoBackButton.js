@@ -1,5 +1,6 @@
 import React from 'react';
 import arrow from '../../img/left-arrow.svg';
+import PropTypes from 'prop-types';
 
 import styles from './GoBackButton.module.css';
 
@@ -13,3 +14,7 @@ const GoBackButton = ({ handleGoBack }) => (
 );
 
 export default GoBackButton;
+
+GoBackButton.propTypes = {
+  handleGoBack: PropTypes.func.isRequired,
+};

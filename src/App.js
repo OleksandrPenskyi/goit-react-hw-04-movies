@@ -1,7 +1,4 @@
 import React, { Component, Suspense, lazy } from 'react';
-// import HomePage from './pages/HomePage';
-// import MoviesPage from './pages/MoviesPage';
-// import MovieDetailsPage from './pages/MovieDetailsPage';
 import Navigation from './components/Navigation';
 import routes from './routes';
 import { Route, Switch } from 'react-router-dom';
@@ -37,6 +34,7 @@ class App extends Component {
           }
         >
           <Switch>
+            <Route exact path={routes.home} component={HomePage} />
             <Route
               path={routes.movieDetailsPage}
               component={MovieDetailsPage}

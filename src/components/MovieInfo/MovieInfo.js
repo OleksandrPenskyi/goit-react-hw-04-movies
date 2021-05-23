@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import styles from './MovieInfo.module.css';
 
 const MovieInfo = ({
@@ -12,7 +14,7 @@ const MovieInfo = ({
   <div className={styles.MovieInfo}>
     <div className={styles.Container}>
       <img
-        className={styles.image}
+        className={styles.Image}
         src={moviePoster}
         alt={`${title} moviePoster`}
       />
@@ -42,3 +44,26 @@ const MovieInfo = ({
 );
 
 export default MovieInfo;
+
+MovieInfo.defaultProps = {
+  title: 'No information',
+  overview: 'No information',
+  genres: 'No information',
+  moviePoster: 'No information',
+  release_date: 'No information',
+  vote_average: 'No information',
+};
+
+MovieInfo.propTypes = {
+  title: PropTypes.string,
+  overview: PropTypes.string,
+  genres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }),
+  ),
+  moviePoster: PropTypes.string,
+  release_date: PropTypes.string,
+  vote_average: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};

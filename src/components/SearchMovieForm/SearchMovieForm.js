@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import styles from './SearchMovieForm.module.css';
 
@@ -8,6 +9,11 @@ const INITIAL_STATE = {
 };
 
 class MovieDetailsPage extends Component {
+  static propTypes = {
+    history: PropTypes.object,
+    location: PropTypes.object,
+  };
+
   state = { ...INITIAL_STATE };
 
   handleInputChange = event => {

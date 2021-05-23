@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import styles from './Navigation.module.css';
 
 const Navigation = ({ pages }) => (
@@ -22,3 +24,12 @@ const Navigation = ({ pages }) => (
 );
 
 export default Navigation;
+
+Navigation.propTypes = {
+  pages: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+    }),
+  ),
+};
