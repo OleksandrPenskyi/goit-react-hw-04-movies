@@ -29,7 +29,16 @@ Navigation.propTypes = {
   pages: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      link: PropTypes.string.isRequired,
+
+      link: PropTypes.oneOfType([
+        PropTypes.string.isRequired,
+        PropTypes.shape({
+          pathname: PropTypes.string.isRequired,
+          state: PropTypes.shape({
+            from: PropTypes.object.isRequired,
+          }).isRequired,
+        }).isRequired,
+      ]),
     }),
   ),
 };

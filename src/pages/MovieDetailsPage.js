@@ -76,6 +76,8 @@ class MovieDetailsPage extends Component {
     } = this.state;
 
     const { url, path } = this.props.match;
+    // пришли "от" / с прошлой страницы
+    const previousPage = this.props.history.location.state.from;
 
     return (
       <>
@@ -92,8 +94,20 @@ class MovieDetailsPage extends Component {
           />
           <Navigation
             pages={[
-              { name: 'Cast', link: `${url}/cast` },
-              { name: 'Reviews', link: `${url}/Reviews` },
+              {
+                name: 'Cast',
+                link: {
+                  pathname: `${url}/cast`,
+                  state: { from: previousPage },
+                },
+              },
+              {
+                name: 'Reviews',
+                link: {
+                  pathname: `${url}/Reviews`,
+                  state: { from: previousPage },
+                },
+              },
             ]}
           />
         </Section>
