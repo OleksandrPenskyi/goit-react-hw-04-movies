@@ -77,7 +77,7 @@ class MovieDetailsPage extends Component {
 
     const { url, path } = this.props.match;
     // пришли "от" / с прошлой страницы
-    const previousPage = this.props.history.location.state.from;
+    const previousPage = this.props.location.state.from;
 
     return (
       <>
