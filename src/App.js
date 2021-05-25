@@ -1,8 +1,8 @@
 import React, { Component, Suspense, lazy } from 'react';
 import Navigation from './components/Navigation';
+import Loading from './components/Loader';
 import routes from './routes';
 import { Route, Switch } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
 
 const HomePage = lazy(() =>
   import('./pages/HomePage' /* webpackChunkName: "HomePage" */),
@@ -15,24 +15,18 @@ const MovieDetailsPage = lazy(() =>
 );
 
 class App extends Component {
-  state = {
-    pages: [
-      { name: 'Home', link: '/' },
-      { name: 'Movies', link: '/movies' },
-    ],
-  };
-  render() {
-    const { pages } = this.state;
+  pages = [
+    { name: 'Home', link: routes.home },
+    { name: 'Movies', link: routes.movies },
+  ];
 
+  state = {};
+  render() {
     return (
       <>
-        <Navigation pages={pages} />
+        <Navigation pages={this.pages} />
 
-        <Suspense
-          fallback={
-            <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
-          }
-        >
+        <Suspense fallback={<Loading />}>
           <Switch>
             <Route exact path={routes.home} component={HomePage} />
             <Route

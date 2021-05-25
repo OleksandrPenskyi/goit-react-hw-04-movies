@@ -11,7 +11,13 @@
 }
 
 .Menu__item {
+  border-bottom: 1px solid transparent;
   list-style: none;
+  transition: all 200ms ease-in;
+}
+
+.Menu__item:hover {
+  border-bottom: 1px solid red;
 }
 
 .Menu__item:not(:last-child) {

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import api from '../services/movie-api';
 import MoviesList from '../components/MoviesList';
+import Section from '../components/Section';
 import routes from '../routes';
 
 class HomePage extends Component {
+  isLoaded = false;
+
   state = {
     trendMovies: [],
   };
@@ -13,20 +16,30 @@ class HomePage extends Component {
     // /проверка на "левый" адрес
     history.push(routes.home);
 
-    const result = await api.getTrendMovie();
+    try {
+      this.isLoaded = true;
+      const result = await api.getTrendMovie();
+      if (this.isLoaded) {
+        this.setState({
+          trendMovies: [...result],
+        });
+      }
+      this.isLoaded = false;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-    this.setState({
-      trendMovies: [...result],
-    });
+  componentWillUnmount() {
+    this.isLoaded = false;
   }
 
   render() {
     const { trendMovies } = this.state;
     return (
-      <>
-        <h2 className="title">Trending today</h2>
+      <Section title="Trending today">
         <MoviesList moviesList={trendMovies} />
-      </>
+      </Section>
     );
   }
 }

@@ -5,13 +5,30 @@ import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 import MovieInfo from '../components/MovieInfo';
 import Navigation from '../components/Navigation';
-import Section from '../components/SectionMovieDetails';
+import Section from '../components/Section';
 import GoBackButton from '../components/GoBackButton';
 import routes from '../routes';
 
 import noPicture from '../img/noPicture.jpg';
 
 class MovieDetailsPage extends Component {
+  pages = [
+    {
+      name: 'Cast',
+      link: {
+        pathname: `${this.props.match.url}/cast`,
+        state: { from: this.props.location.state.from },
+      },
+    },
+    {
+      name: 'Reviews',
+      link: {
+        pathname: `${this.props.match.url}/Reviews`,
+        state: { from: this.props.location.state.from },
+      },
+    },
+  ];
+
   isLoaded = false;
 
   state = {
@@ -75,15 +92,12 @@ class MovieDetailsPage extends Component {
       vote_average,
     } = this.state;
 
-    const { url, path } = this.props.match;
-    // пришли "от" / с прошлой страницы
-    const previousPage = this.props.location.state.from;
+    const { path } = this.props.match;
 
     return (
       <>
         <Section>
           <GoBackButton handleGoBack={this.handleGoBack} />
-
           <MovieInfo
             title={title}
             overview={overview}
@@ -92,24 +106,7 @@ class MovieDetailsPage extends Component {
             release_date={release_date}
             vote_average={vote_average}
           />
-          <Navigation
-            pages={[
-              {
-                name: 'Cast',
-                link: {
-                  pathname: `${url}/cast`,
-                  state: { from: previousPage },
-                },
-              },
-              {
-                name: 'Reviews',
-                link: {
-                  pathname: `${url}/Reviews`,
-                  state: { from: previousPage },
-                },
-              },
-            ]}
-          />
+          <Navigation pages={this.pages} />
         </Section>
 
         <Route
